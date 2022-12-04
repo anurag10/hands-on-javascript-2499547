@@ -26,7 +26,7 @@ mainContent.innerHTML = Cardlist(newData);
  * Light/dark mode feature.
  */
 const toggle = document.querySelector(".toggle");
-
+const docElem = document.documentElement;
 // Trigger mode change with toggle.
 const toggleDisplayMode = () => {
   if (toggle.getAttribute("aria-pressed") === "true") {
@@ -34,5 +34,8 @@ const toggleDisplayMode = () => {
   } else {
     toggle.setAttribute("aria-pressed", "true");
   }
+
+  docElem.classList.toggle("dark");
+  docElem.classList.toggle("light");
 };
 toggle.addEventListener("click", () => toggleDisplayMode());
