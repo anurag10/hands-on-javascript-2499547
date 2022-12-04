@@ -1,3 +1,12 @@
+const tempertatureTranlator = (temp) => {
+  const allTemp = {
+    k: temp,
+    c: temp - 273,
+    f: 1.8 * (temp - 273) + 32,
+  };
+  return allTemp;
+};
+
 const weatherCard = (data) => {
   return `
     <article class="weathercard">
@@ -7,9 +16,9 @@ const weatherCard = (data) => {
   }</div>
           </div>
           <div class="weathercard__temp">
-            <span class="temp">${
+            <span class="temp">${tempertatureTranlator(
               data.main.temp
-            }</span><span class="tempunit">°C</span>
+            ).c.toFixed(1)}</span><span class="tempunit">°C</span>
           </div>
           <div class="weathercard__wind">
             <div class="weathercard__wind-speed">

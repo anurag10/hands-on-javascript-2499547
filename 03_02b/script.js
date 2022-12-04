@@ -12,3 +12,19 @@ import settings from "../settings.js";
 const tempField = document.querySelector(".getTemp");
 const windSpeed = document.querySelector(".getWSpeed");
 const windDir = document.querySelector(".getWDir");
+
+const displayData = () => {
+  fetch(
+    "https://api.openweathermap.org/data/2.5/weather?q=${settings.location}&appid=${settings.appid}"
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      tempField.replaceWith(data.main.temp);
+      windSpeed.replaceWith(data.wind.speed);
+      windDir.replaceWith(data.wind.deg);
+    });
+};
+displayData();
