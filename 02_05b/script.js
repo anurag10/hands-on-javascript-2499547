@@ -23,7 +23,17 @@ const newData = data.map((imgData) => {
 
 const mainContent = document.querySelector(".main-content");
 
-mainContent.innerHTML = Cardlist(newData);
+const loadButton = document.querySelector("#load");
+const loader = document.querySelector(".loader");
+
+loadButton.addEventListener("click", () => {
+  loadButton.classList.toggle("hidden");
+  loader.classList.toggle("hidden");
+
+  setTimeout(() => {
+    mainContent.innerHTML = Cardlist(newData);
+  }, 3000);
+});
 
 /**
  * Light/dark mode feature.
