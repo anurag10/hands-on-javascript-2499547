@@ -27,29 +27,52 @@ mainContent.innerHTML = Cardlist(newData);
 const docElement = document.documentElement;
 const toggle = document.querySelector(".toggle");
 
+const THEMES = {
+  DARK: "dark",
+  LIGHT: "light",
+};
+
 // Detect mode on load and set toggle state accordingly.
 const displayModeOnLoad = () => {
-  if (
+  let isDark = false;
+
+  isDark = !!(
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
+  );
+
+  console.log("isDark" + isDark);
+
+  const currTheme = localStorage.getItem("currentTheme");
+  if (localStorage.key("currentTheme")) isDark = currTheme === THEMES.DARK;
+
+  console.log("isDark" + isDark + " currTheme" + currTheme);
+  if (isDark) {
     docElement.classList.add("dark");
     toggle.setAttribute("aria-pressed", "true");
+    localStorage.setItem("currentTheme", THEMES.DARK);
   } else {
     docElement.classList.add("light");
     toggle.removeAttribute("aria-pressed");
+    localStorage.setItem("currentTheme", THEMES.LIGHT);
   }
 };
 displayModeOnLoad();
 
 // Trigger mode change with toggle.
 const toggleDisplayMode = () => {
+  let currTheme = 0;
   if (toggle.getAttribute("aria-pressed") === "true") {
     toggle.removeAttribute("aria-pressed");
+    localStorage.setItem("currentTheme", THEMES.LIGHT);
+    currTheme = THEMES.LIGHT;
   } else {
+    localStorage.setItem("currentTheme", THEMES.DARK);
     toggle.setAttribute("aria-pressed", "true");
+    currTheme = THEMES.DARK;
   }
 
+  console.log("set currTheme: ", currTheme);
   docElement.classList.toggle("dark");
   docElement.classList.toggle("light");
 };
